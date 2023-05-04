@@ -5,7 +5,6 @@ class Address {
   public $number;
   public $city;
 
-
   // queste proprietà NON FANNO PARTE degli oggetti, bensì della singola classe
   public static $country = "Italy";
 

@@ -55,6 +55,7 @@ $users[] = $kevin;
           <th>Età</th>
           <th>Indirizzo</th>
           <th>Sconto</th>
+          <th>Tipologia</th>
         </tr>
       </thead>
       
@@ -70,6 +71,7 @@ $users[] = $kevin;
               <td><?= $singleUser->age ?></td>
               <td><?= $singleUser->address->getFullAddress() ?></td>
               <td><?= $singleUser->discount ?>%</td>
+              <td><?php echo get_class($singleUser) == "User" ? '' : 'premium'?></td>
             </tr>
             <?php
           }

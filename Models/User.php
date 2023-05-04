@@ -5,7 +5,7 @@ class User {
   public $lastName;
   public $age;
   public $address;
-  public $discount = 0;
+  protected $discount = 0;
 
   function __construct(string $name, string $lastName, int $age, Address $address) {
     $this->name = $name;
@@ -13,27 +13,23 @@ class User {
     $this->age = $age;
     $this->address = $address;
 
-    if($age > 30) {
-      $this->discount = 20;
-    }
-  }
-}
-
-class PremiumUser extends User {
-  public $membership;
-
-  function __construct($name, $lastName, $age, $address, $membership)
-  {
-    parent::__construct($name, $lastName, $age, $address);
-
-    $this->membership = $membership;
+    $this->setDiscount();
   }
 
   public function setDiscount() {
     if($this->age > 30) {
-      $this->discount = 50;
+      $this->discount = 20;
     } else {
-      $this->discount = 10;
+      $this->discount = 0;
     }
   }
+
+  public function getDiscountPercentage() {
+    return $this->discount . "%";
+  }
+
+  public function getDiscount() {
+    return $this->discount;
+  }
+
 }
