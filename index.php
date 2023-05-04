@@ -14,10 +14,12 @@ $users[] = $christian;
 $users[] = $kevin;
 
 
-session_start();
-if(!isset($_SESSION['users'])) {
-  $_SESSION['users'] = $users;
-}
+// session_start();
+
+// if(!isset($_SESSION['users'])) {
+//   $_SESSION['users'] = $users;
+// }
+
 
 ?>
 
@@ -60,7 +62,7 @@ if(!isset($_SESSION['users'])) {
         
         <?php 
 
-          foreach($_SESSION['users'] as $singleUser) {
+          foreach($users as $singleUser) {
             ?>
             <tr>
               <td><?php echo $singleUser->name ?></td>
@@ -80,15 +82,6 @@ if(!isset($_SESSION['users'])) {
     </table>
 
 
-    <hr>
-
-    <form action="registerUser.php" method="POST">
-      <input type="text" name="name" placeholder="name">
-      <input type="text" name="lastName" placeholder="lastName">
-      <input type="number" name="age" placeholder="age">
-
-      <button type="sumbit">registra</button>
-    </form>
 
 
   </div>

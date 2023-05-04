@@ -18,3 +18,22 @@ class User {
     }
   }
 }
+
+class PremiumUser extends User {
+  public $membership;
+
+  function __construct($name, $lastName, $age, $address, $membership)
+  {
+    parent::__construct($name, $lastName, $age, $address);
+
+    $this->membership = $membership;
+  }
+
+  public function setDiscount() {
+    if($this->age > 30) {
+      $this->discount = 50;
+    } else {
+      $this->discount = 10;
+    }
+  }
+}
