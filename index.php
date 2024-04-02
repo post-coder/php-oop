@@ -9,6 +9,9 @@ class Address {
     public $numero;
     public $citta;
     public $provincia;
+
+    // proprietà statiche
+    public static $stato = "Italia";
     
     /**
      * __construct
@@ -33,10 +36,15 @@ class Address {
      */
     public function getFullAddress() {
 
-        return $this->via . ' ' . $this->numero . ', ' . $this->citta . ', ' . $this->provincia;
+        return $this->via . ' ' . $this->numero . ', ' . $this->citta . ', ' . $this->provincia . '. ' . self::$stato;
 
     }
 
+
+
+    public static function getInstructions() {
+        return "Per compilare correttamente l'indirizzo devi fornire via, numero, città e provincia.";
+    }
 }
 
 
@@ -68,6 +76,8 @@ class User {
 
     public $indirizzo;
 
+    public static $race = "Human";
+
 
     // come possiamo obbligare lo sviluppatore a realizzare un oggetto della nostra classe
     // che abbia per forza determinate proprietà già compilate
@@ -86,13 +96,12 @@ class User {
      * @param  string $_email
      * @param  int $_annoNascita
      */   
-    function __construct($_nome, $_email, $_annoNascita, Address $_indirizzo) {
+    function __construct($_nome, $_email, $_annoNascita) {
         // dentro il costruttore mettiamo tutte le istruzioni che vanno a "compilare" 
         // gli attributi della nostra classe
         $this->nome = $_nome;
         $this->email = $_email;
         $this->annoNascita = $_annoNascita;
-        $this->indirizzo = $_indirizzo;
 
     }
 
@@ -127,13 +136,8 @@ $user1Address = new Address("Via dei Funghi", 10, 'Regno dei Funghi', 'NintendoL
 
 // istanzio un oggetto di classe User
 // passiamo l'indirizzo nella creazione dell'oggetto User
-$user1 = new User("Mario", "mario@mail.com", 1985, $user1Address);
-
-
-// best practice: evitare di avere proprietà in più tra oggetti
-// ovvero proprietà che non siano definite nella classe
-$user1->lavoro = "Idraulico";
-$user1->setSconto(80);
+$user1 = new User("Mario", "mario@mail.com", 1985);
+$user1->indirizzo = $user1Address;
 
 // var_dump($user1);
 
@@ -142,11 +146,9 @@ $user1->setSconto(80);
 
 
 
+// oppure possiamo creare un nuovo elemento Address direttamente dentro il costruttore dell'utente
+$user2 = new User("Luigi", "luigi@mail.com", 1985);
 
-
-$user2 = new User("Luigi", "luigi@mail.com", 1985, new Address('Via delle conce', '27', 'Sassari', 'Sassari'));
-// $user2->setSconto(35);
-// var_dump($user2);
 
 
 
@@ -155,6 +157,7 @@ $user2 = new User("Luigi", "luigi@mail.com", 1985, new Address('Via delle conce'
 $users = [
     $user1,
     $user2,
+    new User("Francesco", "totti@gmail.com", '1981'),
 ];
 
 var_dump($users);
@@ -180,14 +183,18 @@ var_dump($users);
     <hr>
     <h1>Utenti</h1>
 
+    <small>
+        <?php echo Address::getInstructions() ?>
+    </small>
+
     <ul>
         <?php
         foreach($users as $user) {
 
             echo "
             <li>
-                ". $user->nome . ", " . $user->email . ", " . $user->lavoro . "<br>
-                Abita in: " . $user->indirizzo->getFullAddress() . "
+                " . $user->nome . ", " . $user->email . ", " . $user->lavoro . "<br>
+                " . $user->indirizzo?->getFullAddress() . "
             </li>";
 
         }
