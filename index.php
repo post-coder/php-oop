@@ -11,6 +11,8 @@ class Address {
     public $provincia;
 
     // proprietà statiche
+    // le proprietà statiche non possono cambiare e devono per tanto essere definite sin da subito
+    // come in questo caso
     public static $stato = "Italia";
     
     /**
@@ -76,6 +78,8 @@ class User {
 
     public $indirizzo;
 
+    // ogni utente ha una proprietà statica $race
+    // queste proprietà non possono essere cambiate, non sono relative ad un singolo utente, ma alla CLASSE.
     public static $race = "Human";
 
 
